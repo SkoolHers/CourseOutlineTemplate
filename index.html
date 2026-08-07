@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Course Outline Template</title>
+<style>
+  :root{
+    --cream:#f7f4ee;
+    --navy:#40607d;
+    --terracotta:#cd6a4f;
+    --mustard:#d9a637;
+    --sage:#8c9c72;
+    --pink:#dd9a92;
+    --steel:#9dbecb;
+    --ink:#33475c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--cream);
+    color:var(--ink);
+    font-family:Georgia,'Times New Roman',serif;
+    line-height:1.6;
+    padding:32px 16px 64px;
+  }
+  .wrap{max-width:680px;margin:0 auto;}
+  header{text-align:center;margin-bottom:36px;}
+  .eyebrow{
+    font-family:Verdana,Arial,sans-serif;
+    font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
+    color:var(--terracotta);margin-bottom:10px;
+  }
+  h1{font-size:34px;color:var(--navy);line-height:1.2;margin-bottom:12px;font-weight:normal;}
+  header p{max-width:500px;margin:0 auto;font-size:16px;}
+  section{
+    background:#fff;border:1px solid #e5dfd3;border-radius:14px;
+    padding:26px 24px;margin-bottom:22px;
+  }
+  .step-label{
+    font-family:Verdana,Arial,sans-serif;font-size:11px;letter-spacing:2px;
+    text-transform:uppercase;color:var(--sage);margin-bottom:6px;
+  }
+  h2{font-size:22px;color:var(--navy);font-weight:normal;margin-bottom:8px;}
+  .lede{font-size:15px;margin-bottom:14px;}
+  textarea,input[type=text]{
+    width:100%;border:1px solid #d8d0c0;border-radius:8px;
+    padding:12px;font-family:Georgia,serif;font-size:15px;color:var(--ink);
+    background:#fdfcf9;resize:vertical;
+  }
+  textarea:focus,input:focus{outline:2px solid var(--steel);border-color:var(--steel);}
+  textarea{min-height:70px;}
+  .hint{font-size:13px;color:#8a8172;margin-top:8px;}
+  .savenote{font-size:12px;color:var(--sage);margin-top:6px;min-height:16px;font-family:Verdana,sans-serif;}
+
+  .teach{
+    background:var(--cream);border-left:3px solid var(--mustard);
+    border-radius:0 8px 8px 0;padding:12px 14px;margin:12px 0 16px;font-size:14px;
+  }
+
+  .module{
+    border:1px solid #e5dfd3;border-radius:10px;
+    padding:16px;margin-bottom:14px;background:#fdfcf9;
+  }
+  .module.scenery{opacity:.55;background:#f3efe6;}
+  .module-top{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;}
+  .module-num{
+    flex:0 0 32px;height:32px;border-radius:50%;
+    background:var(--navy);color:#fff;font-family:Verdana,sans-serif;
+    font-size:14px;display:flex;align-items:center;justify-content:center;margin-top:4px;
+  }
+  .module.scenery .module-num{background:#b7b0a3;}
+  .module-fields{flex:1;min-width:220px;}
+  .module-fields input{margin-bottom:8px;}
+  .toggle-row{
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    font-family:Verdana,sans-serif;font-size:13px;margin-top:8px;
+  }
+  .tog{
+    font-family:Verdana,sans-serif;font-size:13px;
+    padding:7px 20px;border-radius:20px;border:1.5px solid var(--navy);
+    background:#fff;color:var(--navy);cursor:pointer;
+  }
+  .tog.on-step{background:var(--sage);border-color:var(--sage);color:#fff;}
+  .tog.on-scenery{background:var(--terracotta);border-color:var(--terracotta);color:#fff;}
+
+  .lessons{margin-top:12px;border-top:1px dashed #d8d0c0;padding-top:12px;}
+  .lesson-row{display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap;}
+  .lesson-row input{flex:1;min-width:160px;}
+  .lesson-row .job{flex:1.4;}
+  .mini-btn{
+    font-family:Verdana,sans-serif;font-size:12px;padding:6px 14px;
+    border-radius:16px;border:1.5px solid var(--steel);background:#fff;
+    color:var(--navy);cursor:pointer;
+  }
+  .mini-btn:hover{background:var(--steel);color:#fff;}
+  .remove-btn{
+    font-family:Verdana,sans-serif;font-size:12px;border:none;background:transparent;
+    color:var(--terracotta);cursor:pointer;padding:6px 8px;
+  }
+  .add-module-btn{
+    display:block;margin:4px auto 0;font-family:Verdana,sans-serif;
+    font-size:14px;padding:10px 26px;border-radius:24px;
+    border:1.5px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;
+  }
+  .add-module-btn:hover{background:var(--navy);color:#fff;}
+
+  .later{border:2px solid var(--pink);}
+  .later h2{color:var(--terracotta);}
+  .later ul{margin:8px 0 0 20px;font-size:15px;}
+  .later li{margin-bottom:6px;}
+  .later .empty{font-size:14px;color:#8a8172;font-style:italic;}
+
+  .card{border:2px solid var(--navy);}
+  .card h2{margin-bottom:4px;}
+  .card .course-title{font-size:26px;color:var(--navy);margin:12px 0 4px;}
+  .card .course-outcome{font-size:15px;margin-bottom:16px;font-style:italic;}
+  .card .card-module{margin-bottom:14px;}
+  .card .card-module h3{
+    font-size:17px;color:var(--navy);font-weight:bold;margin-bottom:4px;
+    border-left:4px solid var(--sage);padding-left:10px;
+  }
+  .card .card-lessons{margin-left:24px;font-size:14.5px;}
+  .card .card-lessons li{margin-bottom:4px;list-style:disc;}
+  .card .card-lessons .lesson-job{color:#8a8172;}
+  .card .empty{font-size:14px;color:#8a8172;font-style:italic;}
+  .card-btn{
+    display:block;margin:14px auto 0;font-family:Verdana,sans-serif;font-size:14px;
+    padding:12px 28px;border-radius:24px;border:none;background:var(--navy);
+    color:#fff;cursor:pointer;
+  }
+  .card-btn:hover{background:#334e66;}
+  .handoff{
+    background:var(--cream);border-radius:8px;padding:12px 14px;
+    margin-top:18px;font-size:14px;text-align:center;
+  }
+
+  .reflect{background:var(--steel);border:none;color:#1f3a4d;}
+  .reflect h2{color:#1f3a4d;}
+  .reflect ul{margin:10px 0 0 20px;font-size:15px;}
+  .reflect li{margin-bottom:8px;}
+
+  .print-btn{
+    display:block;margin:8px auto 0;font-family:Verdana,sans-serif;
+    font-size:14px;padding:12px 28px;border-radius:24px;
+    border:1.5px solid var(--navy);background:#fff;color:var(--navy);cursor:pointer;
+  }
+  .print-btn:hover{background:var(--navy);color:#fff;}
+  .storage-note{text-align:center;font-size:12px;color:#8a8172;margin-top:12px;font-family:Verdana,sans-serif;}
+
+  @media print{
+    body{background:#fff;padding:0;}
+    section{border:1px solid #ccc;break-inside:avoid;}
+    .print-btn,.card-btn,.mini-btn,.remove-btn,.add-module-btn,.storage-note,.savenote,.tog{display:none;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Plan Before You Build</div>
+  <h1>Course Outline Template</h1>
+  <p>Turn your course idea into a lean outline where every module earns its place. Start with the outcome, map the path, cut the scenery, then walk away with a plan you can build from.</p>
+</header>
+
+<section>
+  <div class="step-label">Step 1</div>
+  <h2>Name the outcome</h2>
+  <p class="lede">Every strong course starts at the finish line. What will your member be able to do when they complete this course?</p>
+  <input type="text" id="courseName" placeholder="Course name. Example: Your First 5K">
+  <div class="savenote" id="saveCourseName"></div>
+  <textarea id="outcome" placeholder="When they finish this course, my member will..."></textarea>
+  <p class="hint">Write it as one sentence about their life, in plain words they'd use themselves. This sentence becomes your filter for every decision below.</p>
+  <div class="savenote" id="saveOutcome"></div>
+</section>
+
+<section>
+  <div class="step-label">Step 2</div>
+  <h2>Map the path</h2>
+  <p class="lede">List the steps a member takes to travel from where they are now to that outcome. Each step becomes a module.</p>
+  <div class="teach">
+    Most courses run long because their creators keep adding. Your members are time poor and attention poor, so a short path they finish beats a long path they abandon. If you're reaching past six modules, ask whether you're planning one course or three.
+  </div>
+  <div id="moduleList"></div>
+  <button class="add-module-btn" onclick="addModule()">Add a module</button>
+</section>
+
+<section>
+  <div class="step-label">Step 3</div>
+  <h2>Run the scenery check</h2>
+  <p class="lede">Go back through each module above and tap Step or Scenery. A step moves your member closer to the outcome. Scenery decorates the trip. Anything you mark as scenery lands in your Save for Later list below, so cutting it costs you nothing.</p>
+  <div class="teach">
+    Your favorite story, that fascinating background chapter, the deep dive you loved researching. If it doesn't move them down the path, it waits. You can always teach it later as a bonus, a post, or its own course.
+  </div>
+</section>
+
+<section class="later">
+  <h2>Save for later</h2>
+  <p class="lede">Everything you cut lives here. Cut with confidence, nothing is lost.</p>
+  <ul id="laterList"></ul>
+  <p class="empty" id="laterEmpty">Nothing here yet. When you mark a module as scenery, it moves to this list.</p>
+</section>
+
+<section>
+  <div class="step-label">Step 4</div>
+  <h2>Give each lesson one job</h2>
+  <p class="lede">Open each surviving module above and list its lessons. For every lesson, name the single job it does. If you catch yourself writing "and" in the job line, you're looking at two lessons.</p>
+</section>
+
+<section class="card">
+  <div class="step-label">Your Outline</div>
+  <h2>The finished plan</h2>
+  <p class="lede">Tap the button and your outline appears below, built from your answers. This is your build order. Follow it and skip everything else.</p>
+  <button class="card-btn" onclick="buildCard()">Build my outline</button>
+  <div id="cardBody"></div>
+  <div class="handoff">
+    Outline done? Before you publish each lesson, run it through the Lesson Point-Check. You'll find it waiting inside SkoolHers along with the rest of the toolkit.
+  </div>
+</section>
+
+<section class="reflect">
+  <h2>Come back to this</h2>
+  <p>Your judgment sharpens as you build. Put these on your calendar:</p>
+  <ul>
+    <li><strong>1 month:</strong> Reread your outline. Have your first members shown you a step you missed or a module they skip?</li>
+    <li><strong>3 months:</strong> Check your Save for Later list. Has anything earned its way back in, or are you glad you cut it?</li>
+    <li><strong>6 months:</strong> Outline your next course without opening this tool. When the outcome-first habit lives in your head, this template has done its job.</li>
+  </ul>
+</section>
+
+<button class="print-btn" onclick="window.print()">Print or save as PDF</button>
+<p class="storage-note">Your answers save automatically in this browser. Print or save as PDF if you want a copy you can keep anywhere.</p>
+
+</div>
+
+<script>
+const KEY='courseOutlineTemplate';
+let state={};
+try{state=JSON.parse(localStorage.getItem(KEY))||{};}catch(e){state={};}
+if(!state.modules){state.modules=[{},{},{}];}
+state.modules.forEach(m=>{if(!m.lessons)m.lessons=[{}];});
+
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+function flash(id){
+  const el=document.getElementById(id);
+  if(!el)return;
+  el.textContent='Saved';
+  setTimeout(()=>{el.textContent='';},1200);
+}
+
+const courseNameEl=document.getElementById('courseName');
+const outcomeEl=document.getElementById('outcome');
+courseNameEl.value=state.courseName||'';
+outcomeEl.value=state.outcome||'';
+courseNameEl.addEventListener('input',()=>{state.courseName=courseNameEl.value;save();flash('saveCourseName');});
+outcomeEl.addEventListener('input',()=>{state.outcome=outcomeEl.value;save();flash('saveOutcome');});
+
+function addModule(){
+  state.modules.push({lessons:[{}]});
+  save();render();
+}
+function removeModule(i){
+  state.modules.splice(i,1);
+  save();render();
+}
+function addLesson(i){
+  state.modules[i].lessons.push({});
+  save();render();
+}
+function removeLesson(i,j){
+  state.modules[i].lessons.splice(j,1);
+  save();render();
+}
+function setKind(i,kind){
+  state.modules[i].kind=kind;
+  save();render();
+}
+
+function render(){
+  const list=document.getElementById('moduleList');
+  list.innerHTML='';
+  let stepNum=0;
+  state.modules.forEach((m,i)=>{
+    const isScenery=m.kind==='scenery';
+    if(!isScenery)stepNum++;
+    const div=document.createElement('div');
+    div.className='module'+(isScenery?' scenery':'');
+    const numLabel=isScenery?'–':stepNum;
+
+    let lessonsHtml='';
+    m.lessons.forEach((l,j)=>{
+      lessonsHtml+='<div class="lesson-row">'+
+        '<input type="text" placeholder="Lesson title" value="'+esc(l.title)+'" oninput="lessonInput('+i+','+j+',\'title\',this.value)">'+
+        '<input type="text" class="job" placeholder="Its one job. Example: they pick their habit" value="'+esc(l.job)+'" oninput="lessonInput('+i+','+j+',\'job\',this.value)">'+
+        '<button class="remove-btn" onclick="removeLesson('+i+','+j+')" title="Remove lesson">&times;</button>'+
+        '</div>';
+    });
+
+    div.innerHTML=
+      '<div class="module-top">'+
+        '<div class="module-num">'+numLabel+'</div>'+
+        '<div class="module-fields">'+
+          '<input type="text" placeholder="Module name. Example: Choose your habit" value="'+esc(m.name)+'" oninput="moduleInput('+i+',this.value)">'+
+          '<div class="toggle-row"><span>Step or scenery?</span>'+
+            '<button class="tog'+(m.kind==='step'?' on-step':'')+'" onclick="setKind('+i+',\'step\')">Step</button>'+
+            '<button class="tog'+(isScenery?' on-scenery':'')+'" onclick="setKind('+i+',\'scenery\')">Scenery</button>'+
+            '<button class="remove-btn" onclick="removeModule('+i+')">Remove</button>'+
+          '</div>'+
+        '</div>'+
+      '</div>'+
+      (isScenery?'':'<div class="lessons">'+lessonsHtml+
+        '<button class="mini-btn" onclick="addLesson('+i+')">Add a lesson</button></div>');
+    list.appendChild(div);
+  });
+  renderLater();
+}
+function moduleInput(i,val){state.modules[i].name=val;save();renderLater();}
+function lessonInput(i,j,field,val){state.modules[i].lessons[j][field]=val;save();}
+function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
+
+function renderLater(){
+  const ul=document.getElementById('laterList');
+  const empty=document.getElementById('laterEmpty');
+  ul.innerHTML='';
+  const scenery=state.modules.filter(m=>m.kind==='scenery'&&(m.name||'').trim());
+  if(scenery.length===0){empty.style.display='block';return;}
+  empty.style.display='none';
+  scenery.forEach(m=>{
+    const li=document.createElement('li');
+    li.textContent=m.name;
+    ul.appendChild(li);
+  });
+}
+
+function buildCard(){
+  const body=document.getElementById('cardBody');
+  body.innerHTML='';
+  const title=document.createElement('div');
+  title.className='course-title';
+  title.textContent=(state.courseName||'').trim()||'Untitled course';
+  body.appendChild(title);
+
+  const outcome=document.createElement('div');
+  outcome.className='course-outcome';
+  outcome.textContent=(state.outcome||'').trim()||'Head back to Step 1 and name your outcome. Your outline needs a finish line.';
+  body.appendChild(outcome);
+
+  const steps=state.modules.filter(m=>m.kind!=='scenery'&&(m.name||'').trim());
+  if(steps.length===0){
+    const p=document.createElement('p');
+    p.className='empty';
+    p.textContent='No modules yet. Head back to Step 2 and map your path.';
+    body.appendChild(p);
+  }
+  steps.forEach((m,idx)=>{
+    const wrap=document.createElement('div');
+    wrap.className='card-module';
+    const h=document.createElement('h3');
+    h.textContent='Module '+(idx+1)+': '+m.name;
+    wrap.appendChild(h);
+    const ul=document.createElement('ul');
+    ul.className='card-lessons';
+    (m.lessons||[]).filter(l=>(l.title||'').trim()).forEach(l=>{
+      const li=document.createElement('li');
+      li.textContent=l.title;
+      if((l.job||'').trim()){
+        const span=document.createElement('span');
+        span.className='lesson-job';
+        span.textContent=' — '+l.job;
+        li.appendChild(span);
+      }
+      ul.appendChild(li);
+    });
+    wrap.appendChild(ul);
+    body.appendChild(wrap);
+  });
+
+  const scenery=state.modules.filter(m=>m.kind==='scenery'&&(m.name||'').trim());
+  if(scenery.length){
+    const wrap=document.createElement('div');
+    wrap.className='card-module';
+    const h=document.createElement('h3');
+    h.style.borderLeftColor='var(--pink)';
+    h.textContent='Saved for later';
+    wrap.appendChild(h);
+    const ul=document.createElement('ul');
+    ul.className='card-lessons';
+    scenery.forEach(m=>{
+      const li=document.createElement('li');
+      li.textContent=m.name;
+      ul.appendChild(li);
+    });
+    wrap.appendChild(ul);
+    body.appendChild(wrap);
+  }
+  body.scrollIntoView({behavior:'smooth'});
+}
+
+render();
+</script>
+</body>
+</html>
